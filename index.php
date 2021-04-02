@@ -1,4 +1,6 @@
 <?php
+// sets error reporting off
+// for deployment
 error_reporting(0);
 
 $siteNameLength = rand(1,12);
@@ -16,10 +18,11 @@ function generateRandomString($length = 10) {
 function requestSite($randomSiteDomainName) {
 
     // echo $randomSiteDomainName;
-    $response = get_headers('http://' . $randomSiteDomainName . '.com');
+    $response = dns_get_record($randomSiteDomainName . '.com');
     return $response;
 
 }
+
 
 
 function isSiteOrNot ($response) {
@@ -32,6 +35,11 @@ if ($response) {
 
 }
 
+if (isset($POST['tryAgain'])) {
+    header('location: index.php');
+}
+
+
 $randomSiteDomainName =  generateRandomString($siteNameLength);
 $siteResponse = requestSite($randomSiteDomainName);
 $result = isSiteOrNot($siteResponse);
@@ -39,6 +47,12 @@ $result = isSiteOrNot($siteResponse);
 $fullDomain = 'http://' . $randomSiteDomainName . '.com';
 
 
-
-
 include __DIR__.'/views/index.html.php';
+
+
+// checks the value of
+// dns_get_record(<random-domain-name.com>)
+
+// echo '<pre>';
+// print_r($siteResponse);
+// echo '</pre>';
