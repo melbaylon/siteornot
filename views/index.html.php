@@ -22,8 +22,8 @@
             }
         ?>
         </p>
-        <form action="<?php $_SERVER['PHP_SELF']; ?>">
-            <input class="btn btn-dark" type="submit" value="Try Again">
+        <form action="" method="post">
+            <input class="btn btn-dark" name="tryAgain" type="submit" value="Try Again">
         </form>
     </main>
 
